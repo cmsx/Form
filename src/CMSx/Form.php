@@ -86,21 +86,59 @@ class Form
     return $this->name ? isset($_POST[$this->name]) : count($_POST) > 0;
   }
 
+  /** Валидна ли форма */
   public function isValid()
   {
     return $this->isValidated() && !$this->hasErrors();
   }
 
+  /** Была ли форма на валидации */
   public function isValidated()
   {
     return (bool)$this->is_validated;
   }
 
+  /** Есть ли ошибки в форме */
   public function hasErrors()
   {
     return count($this->errors) > 0;
   }
 
+  /**
+   * Получение ошибок
+   * $plain - объединить все ошибки.
+   * Если $plain === true, склеивание через \n, иначе используется $plain
+   */
+  public function getErrors($plain = false)
+  {
+    if (!$this->hasErrors()) {
+      return false;
+    }
+
+    if ($plain) {
+      $plain = $plain === true ? "\n" : $plain;
+
+      $out = array();
+      foreach ($this->errors as $w => $arr) {
+        foreach ($arr as $str) {
+          $out[] = $str;
+        }
+      }
+      return join($plain, $out);
+    }
+
+    return $this->errors;
+  }
+
+  /** Установка произвольной ошибки */
+  public function addError($msg)
+  {
+    $this->errors['_user'][] = $msg;
+
+    return $this;
+  }
+
+  /** Установка значений по умолчанию */
   public function setDefaultValues($data)
   {
     foreach ($data as $field => $value) {

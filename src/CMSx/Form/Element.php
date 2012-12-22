@@ -68,17 +68,17 @@ abstract class Element
 
     if (!empty($data)) {
       if ($this->options && !$this->checkValueIsInOptions($data)) {
-        $this->errors[] = sprintf($this->tmpl_err_option, $this->label);
+        $this->errors[] = sprintf($this->tmpl_err_option, $this->getLabel());
       }
       if ($this->regexp && !preg_match($this->regexp, $data)) {
-        $this->errors[] = sprintf($this->tmpl_err_wrong, $this->label);
+        $this->errors[] = sprintf($this->tmpl_err_wrong, $this->getLabel());
       }
       if ($this->filter && !call_user_func_array($this->filter, array($data))) {
-        $this->errors[] = sprintf($this->tmpl_err_wrong, $this->label);
+        $this->errors[] = sprintf($this->tmpl_err_wrong, $this->getLabel());
       }
     } else {
       if ($this->is_required) {
-        $this->errors[] = sprintf($this->tmpl_err_required, $this->label);
+        $this->errors[] = sprintf($this->tmpl_err_required, $this->getLabel());
       }
     }
 

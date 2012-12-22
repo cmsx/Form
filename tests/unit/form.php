@@ -23,6 +23,26 @@ class FormTest extends PHPUnit_Framework_TestCase
     $this->assertTrue($f->isValidated(), 'Для формы вызывалась валидация');
     $this->assertFalse($f->isValid(), 'Форма невалидна');
 
+    $f->addError('Проблема');
+
+    $e = $f->getErrors();
+    $this->assertEquals(3, count($e), 'Всего 3 ошибки');
+    $this->assertEquals(1, count($e['one']), 'Ошибка по полю one');
+    $this->assertEquals(1, count($e['two']), 'Ошибка по полю two');
+    $this->assertEquals('Проблема', $e['_user'][0], 'Пользовательская ошибка');
+
+    $f = new \CMSx\Form('test');
+    $f->addInput('one', 'One')
+      ->setFilter('is_numeric');
+
+    $f->validate(array('one' => 'abc'));
+    $f->addError('Проблема');
+
+    $e = $f->getErrors();
+    $exp1 = $e['one'][0] . "\n" . 'Проблема';
+    $exp2 = $e['one'][0] . ' - Проблема';
+    $this->assertEquals($exp1, $f->getErrors(true), 'Plain версия ошибок #1');
+    $this->assertEquals($exp2, $f->getErrors(' - '), 'Plain версия ошибок #2');
   }
 
   function testDefaultValues()
