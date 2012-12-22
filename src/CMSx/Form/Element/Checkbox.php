@@ -23,17 +23,9 @@ class Checkbox extends Element
       $this->getName(),
       $this->getIsChecked(),
       $this->getCheckboxValue(),
-      $this->getAttributes(),
+      $this->getAttributes(false),
       $this->getRenderWithLabel() ? $this->getLabel() : null
     );
-  }
-
-  public function getAttributes()
-  {
-    $arr = parent::getAttributes();
-    unset($arr['placeholder']);
-
-    return $arr;
   }
 
   public function getIsChecked()

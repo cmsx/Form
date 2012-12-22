@@ -101,14 +101,14 @@ abstract class Element
   }
 
   /** Массив атрибутов для HTML тега инпута */
-  public function getAttributes()
+  public function getAttributes($include_placeholder = true)
   {
-    return HTML::AttrConvert(
-      $this->attributes, array(
-        'id'          => $this->getId(),
-        'placeholder' => $this->getPlaceholder()
-      )
-    );
+    $arr = array('id' => $this->getId());
+    if ($include_placeholder) {
+      $arr['placeholder'] = $this->getPlaceholder();
+    }
+
+    return HTML::AttrConvert($this->attributes, $arr);
   }
 
   /** Значение по-умолчанию. Используется только при выводе пользователю. */
