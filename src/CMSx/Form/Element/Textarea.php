@@ -5,9 +5,6 @@ namespace CMSx\Form\Element;
 use CMSx\Form\Element;
 use CMSx\HTML;
 
-/**
- * Отрисовка стандартного INPUT`а
- */
 class Textarea extends Element
 {
   protected $rows;

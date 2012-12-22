@@ -5,9 +5,6 @@ namespace CMSx\Form;
 use CMSx\HTML;
 use CMSx\Form;
 
-/**
- * Базовый класс, на основе которого создаются элементы формы - INPUT`ы, SELECT`ы и т.п.
- */
 abstract class Element
 {
   /** @var Form */

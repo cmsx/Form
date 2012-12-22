@@ -4,7 +4,7 @@ use CMSx\Form\Element\Textarea;
 
 require_once __DIR__.'/../../init.php';
 
-class PasswordTest extends PHPUnit_Framework_TestCase
+class TextareaTest extends PHPUnit_Framework_TestCase
 {
   function testRender()
   {

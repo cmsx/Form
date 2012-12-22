@@ -5,9 +5,6 @@ namespace CMSx\Form\Element;
 use CMSx\Form\Element;
 use CMSx\HTML;
 
-/**
- * Отрисовка стандартного INPUT`а
- */
 class Hidden extends Element
 {
   public function render()
