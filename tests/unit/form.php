@@ -40,7 +40,7 @@ class FormTest extends PHPUnit_Framework_TestCase
   function testFormAttr()
   {
     $f1 = new \CMSx\Form();
-    $f1->setFormAttr('myclass');
+    $f1->setFormAttributes('myclass');
 
     $f2 = new \CMSx\Form();
 
@@ -49,7 +49,7 @@ class FormTest extends PHPUnit_Framework_TestCase
 
     $attr = array('one' => '1', 'hello' => 'world');
     $f1 = new \CMSx\Form();
-    $f1->setFormAttr($attr);
+    $f1->setFormAttributes($attr);
 
     $f2 = new \CMSx\Form();
 
