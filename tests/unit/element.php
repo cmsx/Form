@@ -29,6 +29,8 @@ class ElementTest extends PHPUnit_Framework_TestCase
     $exp = '<input id="form-test" name="test" placeholder="" type="text" value="123" />';
     $this->assertEquals($exp, $e->render(), 'Элемент по-умолчанию');
 
+    $this->assertEquals($e->render(), (string)$e, 'toString()');
+
     $e->setLabelAsPlaceholder();
     $this->assertSelectCount('input[placeholder=Test]', true, $e->render(), 'Плейсхолдер');
 

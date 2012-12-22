@@ -32,7 +32,7 @@ abstract class Element
   protected $is_validated;
   protected $label_as_placeholder;
 
-  /** Шаблон обязательно поле не заполнено */
+  /** Шаблон обязательное поле не заполнено */
   protected $tmpl_err_required = 'Обязательное поле "%s" не заполнено';
   /** Шаблон ошибки по фильтру или регулярному выражению */
   protected $tmpl_err_wrong = 'Поле "%s" заполнено некорректно';
