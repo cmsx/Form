@@ -4,6 +4,33 @@ require_once __DIR__.'/../init.php';
 
 class FormTest extends PHPUnit_Framework_TestCase
 {
+  function testFormRender()
+  {
+    $f = new \CMSx\Form('test');
+    $f->addCheckbox('hello', 'Привет', 13)
+      ->setAttributes('ch');
+    $f->addInput('test');
+    $f->addCaption('hi', 'Hi!', 'Some text here');
+    $f->addTextarea('text', 'Текст')
+      ->setIsRequired();
+    $f->addHidden('id', null, 12)
+      ->setAttributes('hid');
+    $f->addCheckboxListing('cl', 'Группа', array('one', 'two'))
+      ->setOptionsIgnoreKeys();
+    $f->setSubmit('Привет', 'sub');
+
+    echo $r = $f->render();
+
+    $this->assertSelectCount('form table tr td label input.ch[type=checkbox]', true, $r, 'Один чекбокс');
+    $this->assertSelectCount('form table tr td label input.ch[value=13]', true, $r, 'Один чекбокс');
+    $this->assertSelectCount('form table tr td input[type=text]', true, $r, 'Один инпут');
+    $this->assertSelectCount('form table tr td h3', true, $r, 'Один заголовок');
+    $this->assertSelectCount('form input.hid[type=hidden]', true, $r, 'Один hidden-инпут');
+    $this->assertSelectCount('form input.hid[value=12]', true, $r, 'Один hidden-инпут значение 12');
+    $this->assertSelectCount('form tr td button.sub[type=submit]', true, $r, 'Одна кнопка отправить');
+    $this->assertGreaterThan(0, strpos($r, '* Текст'), 'Поле текст обязательное');
+  }
+
   function testFormTagRender()
   {
     $f = new \CMSx\Form();
