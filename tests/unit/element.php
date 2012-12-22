@@ -25,9 +25,15 @@ class ElementTest extends PHPUnit_Framework_TestCase
   function testRenderInput()
   {
     $e = new ElementOptions('test');
+    $e->setFilter('is_numeric');
     $e->setDefaultValue(123);
     $exp = '<input id="form-test" name="test" placeholder="" type="text" value="123" />';
     $this->assertEquals($exp, $e->render(), 'Элемент по-умолчанию');
+
+    $exp = '<input id="form-test" name="test" placeholder="" type="text" value="&lt;a&gt;bc&lt;/a&gt;" />';
+    $e->validate('<a>bc</a>');
+    $this->assertEquals($exp, $e->render(), 'Экранированные символы в значении');
+    $this->assertFalse($e->getValue(), 'Значение недоступно');
 
     $this->assertEquals($e->render(), (string)$e, 'toString()');
 

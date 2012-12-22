@@ -14,7 +14,7 @@ class RadioListing extends Element
     return HTML::RadioListing(
       $this->options,
       $this->getName(),
-      $this->getValue(),
+      $this->getTaintedValue(),
       $this->separator,
       $this->ignore_keys
     );

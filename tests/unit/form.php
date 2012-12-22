@@ -4,6 +4,40 @@ require_once __DIR__.'/../init.php';
 
 class FormTest extends PHPUnit_Framework_TestCase
 {
+  function testValidation()
+  {
+    $f = new \CMSx\Form('test');
+    $f->addInput('one')
+      ->setIsRequired(true);
+    $f->addInput('two')
+      ->setFilter('is_numeric');
+
+    $this->assertFalse($f->hasErrors(), 'Форма не содержит ошибок');
+    $this->assertFalse($f->isValidated(), 'Для формы еще не вызывалась валидация');
+    $this->assertFalse($f->isValid(), 'Форма еще проверялась');
+
+    $v = $f->validate(array('two' => 'abc'));
+
+    $this->assertFalse($v, 'Невалидная форма');
+    $this->assertTrue($f->hasErrors(), 'Форма содержит ошибки');
+    $this->assertTrue($f->isValidated(), 'Для формы вызывалась валидация');
+    $this->assertFalse($f->isValid(), 'Форма невалидна');
+
+  }
+
+  function testDefaultValues()
+  {
+    $f = new \CMSx\Form('test');
+    $f->addInput('one');
+    $f->addInput('two');
+    $f->setDefaultValues(array('one' => 1, 'two' => 2, 'three' => 3));
+
+    $this->assertEquals(array('one' => 1, 'two' => 2), $f->getValues(), 'Массив значений формы');
+    $this->assertEquals(1, $f->getValue('one'), 'Значение для one');
+    $this->assertEquals(2, $f->getValue('two'), 'Значение для two');
+    $this->assertFalse($f->getValue('three'), 'Значение для three не существует');
+  }
+
   function testFormRender()
   {
     $f = new \CMSx\Form('test');

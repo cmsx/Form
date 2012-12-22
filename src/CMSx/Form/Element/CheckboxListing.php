@@ -14,7 +14,7 @@ class CheckboxListing extends Element
     return HTML::CheckboxListing(
       $this->options,
       $this->getName(),
-      $this->getValue(),
+      $this->getTaintedValue(),
       $this->separator,
       $this->ignore_keys
     );

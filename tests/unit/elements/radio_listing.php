@@ -16,6 +16,10 @@ class RadioListingTest extends PHPUnit_Framework_TestCase
     $act = $e->render();
     $this->assertEquals($exp, $act, 'Список радиобатонов по значениям');
 
+    $e->setFilter('is_numeric');
+    $e->validate('one');
+    $this->assertSelectCount('input[checked=checked]', true, $e->render(), 'Один пункт выделен');
+
     $e = new RadioListing('test');
     $e->setOptions(array(1 => 'one', 2 => 'two'));
     $e->setSeparator('<br />');
@@ -24,6 +28,7 @@ class RadioListingTest extends PHPUnit_Framework_TestCase
     $act = $e->render();
     $this->assertEquals($exp, $act, 'Список радиобатонов ключ-значение с разделителем');
 
-
+    $e->validate(2);
+    $this->assertSelectCount('input[checked=checked]', true, $e->render(), 'Один пункт выделен');
   }
 }

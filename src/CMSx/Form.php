@@ -28,6 +28,10 @@ class Form
     'attr' => null,
     'text' => 'Отправить'
   );
+  /** Массив ошибок формы */
+  protected $errors = array();
+  /** Вызывалась ли валидация формы */
+  protected $is_validated;
 
   /** Шаблон для отрисовки всех полей. fields, submit */
   protected $tmpl_fields = "<table>\n%s%s</table>\n";
@@ -59,6 +63,76 @@ class Form
     }
   }
 
+  public function validate($data = null)
+  {
+    $this->errors       = array();
+    $this->is_validated = true;
+
+    if (is_null($data)) {
+      if (!$this->isSent()) {
+        return false;
+      }
+      $data = !empty($this->name) ? $_POST[$this->name] : $_POST;
+    }
+
+    $this->validateFields($data);
+
+    return $this->isValid();
+  }
+
+  /** Проверка, отправлена ли форма */
+  public function isSent()
+  {
+    return $this->name ? isset($_POST[$this->name]) : count($_POST) > 0;
+  }
+
+  public function isValid()
+  {
+    return $this->isValidated() && !$this->hasErrors();
+  }
+
+  public function isValidated()
+  {
+    return (bool)$this->is_validated;
+  }
+
+  public function hasErrors()
+  {
+    return count($this->errors) > 0;
+  }
+
+  public function setDefaultValues($data)
+  {
+    foreach ($data as $field => $value) {
+      if ($f = $this->field($field)) {
+        $f->setDefaultValue($value);
+      }
+    }
+
+    return $this;
+  }
+
+  /** Значение поля формы. */
+  public function getValue($field)
+  {
+    if (!empty($field) && $f = $this->field($field)) {
+      return $f->getValue(false);
+    }
+
+    return false;
+  }
+
+  /** Значение всех полей формы */
+  public function getValues()
+  {
+    $out = array();
+    foreach ($this->fields as $f => $el) {
+      $out[$f] = $el->getValue(false);
+    }
+
+    return $out;
+  }
+
   /** Имя формы используемое для адресации */
   public function setName($name)
   {
@@ -66,7 +140,6 @@ class Form
 
     return $this;
   }
-
 
   /** Имя формы используемое для адресации */
   public function getName()
@@ -297,5 +370,17 @@ class Form
   protected function renderIsRequired($is_required)
   {
     return $is_required ? ' * ' : '';
+  }
+
+  /** Проверить все поля формы */
+  protected function validateFields($data)
+  {
+    /** @var $element Element */
+    foreach ($this->fields as $field => $element) {
+      $val = isset ($data[$field]) ? $data[$field] : null;
+      if (!$element->validate($val)) {
+        $this->errors[$field] = $element->getErrors();
+      }
+    }
   }
 }

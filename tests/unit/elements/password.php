@@ -9,7 +9,7 @@ class PasswordTest extends PHPUnit_Framework_TestCase
   function testRender()
   {
     $e = new Password('test');
-    $exp = '<input id="form-test" name="test" placeholder="" type="password" />';
+    $exp = '<input id="form-test" name="test" placeholder="" type="password" value="" />';
     $this->assertEquals($exp, $e->render(), 'Рендер по-умолчанию');
   }
 }

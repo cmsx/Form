@@ -14,7 +14,7 @@ class Textarea extends Element
   {
     return HTML::Textarea(
       $this->getName(),
-      $this->getValue(),
+      $this->getTaintedValue(),
       $this->getAttributes(),
       $this->getRows(),
       $this->getCols()

@@ -56,7 +56,7 @@ abstract class Element
   /** Отрисовка элемента */
   public function render()
   {
-    return HTML::Input($this->getName(), $this->getValue(), $this->getAttributes());
+    return HTML::Input($this->getName(), $this->getTaintedValue(), $this->getAttributes());
   }
 
   /** Проверка значения */
@@ -310,9 +310,13 @@ abstract class Element
   }
 
   /** "Сырое" значение переданное в элемент, даже если оно не прошло валидацию */
-  public function getTaintedValue()
+  public function getTaintedValue($clean = true)
   {
-    return $this->value;
+    $v = $this->is_validated
+      ? $this->value
+      : $this->getDefaultValue();
+
+    return $clean && !is_array($v) ? htmlspecialchars($v) : $v;
   }
 
   /** Имя формы, в которой находится элемент */

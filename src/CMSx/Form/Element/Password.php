@@ -9,6 +9,6 @@ class Password extends Element
 {
   public function render()
   {
-    return HTML::Password($this->getName(), $this->getValue(), $this->getAttributes());
+    return HTML::Password($this->getName(), $this->getTaintedValue(), $this->getAttributes());
   }
 }

@@ -9,6 +9,6 @@ class Hidden extends Element
 {
   public function render()
   {
-    return HTML::Hidden($this->getName(), $this->getValue(), $this->getAttributes(false));
+    return HTML::Hidden($this->getName(), $this->getTaintedValue(), $this->getAttributes(false));
   }
 }

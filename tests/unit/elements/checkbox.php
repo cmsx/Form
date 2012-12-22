@@ -6,6 +6,17 @@ require_once __DIR__.'/../../init.php';
 
 class CheckboxTest extends PHPUnit_Framework_TestCase
 {
+  function testValidation()
+  {
+    $e = new Checkbox('test');
+
+    $e->validate(1);
+    $this->assertSelectCount('input[checked=checked]', true, $e->render());
+
+    $e->validate(2);
+    $this->assertSelectCount('input[checked=checked]', false, $e->render());
+  }
+
   function testRender()
   {
     $e = new Checkbox('test');

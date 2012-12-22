@@ -9,7 +9,7 @@ class HiddenTest extends PHPUnit_Framework_TestCase
   function testRender()
   {
     $e = new Hidden('test');
-    $exp = '<input id="form-test" name="test" type="hidden" />';
+    $exp = '<input id="form-test" name="test" type="hidden" value="" />';
     $this->assertEquals($exp, $e->render(), 'Рендер по-умолчанию');
   }
 }
