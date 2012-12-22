@@ -9,19 +9,18 @@ class Checkbox extends Element
 {
   protected $is_checked;
   protected $checkbox_value = 1;
-  protected $render_with_label;
 
   /** Шаблон обязательное поле не заполнено */
   protected $tmpl_err_required = 'Вы должны подтвердить "%s"';
 
-  public function render()
+  public function render($with_label = true)
   {
     return HTML::Checkbox(
       $this->getName(),
       $this->getIsChecked(),
       $this->getCheckboxValue(),
       $this->getAttributes(false),
-      $this->getRenderWithLabel() ? $this->getLabel() : null
+      $with_label ? $this->getLabel() : null
     );
   }
 
@@ -63,19 +62,5 @@ class Checkbox extends Element
   public function getCheckboxValue()
   {
     return $this->checkbox_value;
-  }
-
-  /** Отрисовывать вместе с окружающим лейблом */
-  public function setRenderWithLabel($render_with_label = true)
-  {
-    $this->render_with_label = $render_with_label;
-
-    return $this;
-  }
-
-  /** Отрисовывать вместе с окружающим лейблом */
-  public function getRenderWithLabel()
-  {
-    return $this->render_with_label;
   }
 }

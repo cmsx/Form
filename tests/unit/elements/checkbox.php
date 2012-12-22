@@ -9,17 +9,16 @@ class CheckboxTest extends PHPUnit_Framework_TestCase
   function testRender()
   {
     $e = new Checkbox('test');
-    $exp = '<input id="form-test" name="test" type="checkbox" value="1" />';
+    $exp = '<label><input id="form-test" name="test" type="checkbox" value="1" /> Test</label>';
     $this->assertEquals($exp, $e->render(), 'Рендер по-умолчанию');
 
     $e->setCheckboxValue(123);
-    $this->assertSelectCount('input[value=123]', true, $e->render(), 'Значение чекбокса');
+    $this->assertSelectCount('label input[value=123]', true, $e->render(), 'Значение чекбокса');
 
     $e->setIsChecked();
-    $this->assertSelectCount('input[checked=checked]', true, $e->render(), 'Чекбокс отмечен');
+    $this->assertSelectCount('label input[checked=checked]', true, $e->render(), 'Чекбокс отмечен');
 
-    $e->setRenderWithLabel();
-    $this->assertSelectCount('label input[type=checkbox]', true, $e->render(), 'Отрисовка вместе с чекбоксом');
+    $this->assertSelectCount('label input[type=checkbox]', false, $e->render(false), 'Отрисовка без лейбла');
   }
 
   function testIsChecked()
