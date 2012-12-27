@@ -1,23 +1,25 @@
 {
-    "name": "cmsx/form",
-    "version" : "0.1.0",
-    "type": "library",
-    "description": "CMSx Form component",
-    "homepage": "http://cmsx.ru",
-    "require": {
-        "php": ">=5.3.0",
-        "cmsx/html":"dev-master"
-    },
-    "repositories":[
+    "name":"cmsx/form",
+    "version":"0.1.0",
+    "type":"library",
+    "description":"CMSx Form component",
+    "homepage":"http://cmsx.ru",
+    "license":"MIT",
+    "authors":[
         {
-            "type":"git",
-            "url":"http://github.com/cmsx/HTML"
+            "name":"Igor Osharin",
+            "email":"igor@osharin.ru",
+            "homepage":"http://igor.osharin.ru"
         }
     ],
+    "require":{
+        "php":">=5.3.0",
+        "cmsx/html":"dev-master"
+    },
     "autoload":{
         "psr-0":{
             "CMSx":"src"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability":"dev"
 }
