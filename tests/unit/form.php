@@ -2,6 +2,25 @@
 
 require_once __DIR__.'/../init.php';
 
+class TestForm extends \CMSx\Form
+{
+  protected function afterValidation($data)
+  {
+    if (isset($data['after'])) {
+      $this->addError('Пост-валидация');
+    }
+  }
+
+  protected function beforeValidation($data)
+  {
+    if (isset($data['before'])) {
+      $this->addError('Пре-валидация');
+    }
+
+    return $data;
+  }
+}
+
 class FormTest extends PHPUnit_Framework_TestCase
 {
   function testValidation()
@@ -142,5 +161,17 @@ class FormTest extends PHPUnit_Framework_TestCase
 
     $this->assertSelectCount('form[one=1]', true, $t2, 'Атрибут t2 one');
     $this->assertSelectCount('form[hello=world]', true, $t2, 'Атрибут t2 hello');
+  }
+
+  function testPrePostValidation()
+  {
+    $f = new TestForm();
+    $this->assertFalse($f->validate(array('one' => 1)), 'Форма без полей не валидна');
+
+    $f->addInput('one');
+
+    $this->assertTrue($f->validate(array('one' => 1)), 'Форма валидна');
+    $this->assertFalse($f->validate(array('before' => 1)), 'Пре-валидация: форма невалидна');
+    $this->assertFalse($f->validate(array('after' => 1)), 'Пост-валидация: форма невалидна');
   }
 }

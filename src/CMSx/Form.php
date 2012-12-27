@@ -63,6 +63,19 @@ class Form
     }
   }
 
+  /** Проверка и выполнение действия формы */
+  public function validateAndProcess($data = null)
+  {
+    return $this->validate($data) && $this->process();
+  }
+
+  /** Для реализации действий формы при наследовании */
+  public function process()
+  {
+    return true;
+  }
+
+  /** Валидация формы */
   public function validate($data = null)
   {
     $this->errors       = array();
@@ -75,7 +88,8 @@ class Form
       $data = !empty($this->name) ? $_POST[$this->name] : $_POST;
     }
 
-    $this->validateFields($data);
+    $this->validateFields($this->beforeValidation($data));
+    $this->afterValidation($data);
 
     return $this->isValid();
   }
@@ -124,6 +138,7 @@ class Form
           $out[] = $str;
         }
       }
+
       return join($plain, $out);
     }
 
@@ -413,12 +428,36 @@ class Form
   /** Проверить все поля формы */
   protected function validateFields($data)
   {
-    /** @var $element Element */
-    foreach ($this->fields as $field => $element) {
-      $val = isset ($data[$field]) ? $data[$field] : null;
-      if (!$element->validate($val)) {
-        $this->errors[$field] = $element->getErrors();
+    if (!$this->fields) {
+      $this->addError('В форме нет полей');
+      return false;
+    }
+
+    if (is_array($data)) {
+      foreach ($this->fields as $field => $element) {
+        $val = isset ($data[$field]) ? $data[$field] : null;
+        if (!$element->validate($val)) {
+          $this->errors[$field] = $element->getErrors();
+        }
       }
     }
+  }
+
+  /**
+   * Метод для пред-проверки или изменения входных данных.
+   * Вызывается до валидации. Должен возвращать $data.
+   * Если будут установлены ошибки, validate() вернет false.
+   */
+  protected function beforeValidation($data)
+  {
+    return $data;
+  }
+
+  /**
+   * Метод для пост-проверки. Вызывается после валидации.
+   * Если будут установлены ошибки, validate() вернет false.
+   */
+  protected function afterValidation($data)
+  {
   }
 }
