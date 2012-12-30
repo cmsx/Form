@@ -41,7 +41,7 @@ class Form
   protected $tmpl_element = "<tr><th>%s%s:</th><td>%s %s</td></tr>\n";
   /** Шаблон для отрисовки чекбокса. is_required, label, input, info, errors */
   protected $tmpl_checkbox = "<tr><td colspan=\"2\">%3\$s %4\$s</td></tr>\n";
-  /** Шаблон для отрисовки чекбокса. is_required, label, input, info, errors */
+  /** Шаблон для отрисовки заголовка (Caption). is_required, label, input, info, errors */
   protected $tmpl_caption = "<tr><td colspan=\"2\">%3\$s\n%4\$s</td></tr>\n";
   /** Шаблон для отрисовки скрытого поля. is_required, label, input, info, errors */
   protected $tmpl_hidden = "%3\$s\n";
@@ -395,6 +395,104 @@ class Form
     }
 
     return $this;
+  }
+
+  /** Шаблон для отрисовки заголовка. is_required, label, input, info, errors */
+  public function setTmplCaption($tmpl_caption)
+  {
+    $this->tmpl_caption = $tmpl_caption;
+
+    return $this;
+  }
+
+  /** Шаблон для отрисовки заголовка. is_required, label, input, info, errors */
+  public function getTmplCaption()
+  {
+    return $this->tmpl_caption;
+  }
+
+  /** Шаблон для отрисовки чекбокса. is_required, label, input, info, errors */
+  public function setTmplCheckbox($tmpl_checkbox)
+  {
+    $this->tmpl_checkbox = $tmpl_checkbox;
+
+    return $this;
+  }
+
+  /** Шаблон для отрисовки чекбокса. is_required, label, input, info, errors */
+  public function getTmplCheckbox()
+  {
+    return $this->tmpl_checkbox;
+  }
+
+  /** Шаблон для отрисовки поля. is_required, label, input, info, errors */
+  public function setTmplElement($tmpl_element)
+  {
+    $this->tmpl_element = $tmpl_element;
+
+    return $this;
+  }
+
+  /** Шаблон для отрисовки поля. is_required, label, input, info, errors */
+  public function getTmplElement()
+  {
+    return $this->tmpl_element;
+  }
+
+  /** Шаблон для отрисовки всех полей. fields, submit */
+  public function setTmplFields($tmpl_fields)
+  {
+    $this->tmpl_fields = $tmpl_fields;
+
+    return $this;
+  }
+
+  /** Шаблон для отрисовки всех полей. fields, submit */
+  public function getTmplFields()
+  {
+    return $this->tmpl_fields;
+  }
+
+  /** Шаблон для отрисовки скрытого поля. is_required, label, input, info, errors */
+  public function setTmplHidden($tmpl_hidden)
+  {
+    $this->tmpl_hidden = $tmpl_hidden;
+
+    return $this;
+  }
+
+  /** Шаблон для отрисовки скрытого поля. is_required, label, input, info, errors */
+  public function getTmplHidden()
+  {
+    return $this->tmpl_hidden;
+  }
+
+  /** Шаблон для отрисовки кнопки отправки */
+  public function setTmplSubmit($tmpl_submit)
+  {
+    $this->tmpl_submit = $tmpl_submit;
+
+    return $this;
+  }
+
+  /** Шаблон для отрисовки кнопки отправки */
+  public function getTmplSubmit()
+  {
+    return $this->tmpl_submit;
+  }
+
+  /** Шаблон для отрисовки текстового поля. is_required, label, input, info, errors */
+  public function setTmplTextarea($tmpl_textarea)
+  {
+    $this->tmpl_textarea = $tmpl_textarea;
+
+    return $this;
+  }
+
+  /** Шаблон для отрисовки текстового поля. is_required, label, input, info, errors */
+  public function getTmplTextarea()
+  {
+    return $this->tmpl_textarea;
   }
 
   /**
