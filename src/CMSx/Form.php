@@ -53,6 +53,8 @@ class Form
     if ($name) {
       $this->setName($name);
     }
+
+    $this->init();
   }
 
   function __toString()
@@ -556,6 +558,11 @@ class Form
    * Если будут установлены ошибки, validate() вернет false.
    */
   protected function afterValidation($data)
+  {
+  }
+
+  /** Метод для настройки формы при наследовании */
+  protected function init()
   {
   }
 }
