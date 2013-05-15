@@ -96,6 +96,24 @@ class Form
     return $this->isValid();
   }
 
+  /** Сброс формы до состояния перед валидацией */
+  public function reset($reset_defaults = false)
+  {
+    $this->errors       = array();
+    $this->is_validated = null;
+
+    if ($this->fields) {
+      foreach ($this->fields as $field) {
+        $field->reset();
+        if ($reset_defaults) {
+          $field->setDefaultValue(null);
+        }
+      }
+    }
+
+    return $this;
+  }
+
   /** Проверка, отправлена ли форма */
   public function isSent()
   {

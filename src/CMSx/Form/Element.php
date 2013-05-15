@@ -89,6 +89,16 @@ abstract class Element
     return true;
   }
 
+  /** Сброс состояния элемента */
+  public function reset()
+  {
+    $this->errors       = null;
+    $this->value        = null;
+    $this->is_validated = null;
+
+    return $this;
+  }
+
   /** Атрибуты для HTML тега инпута */
   public function setAttributes($attribute)
   {

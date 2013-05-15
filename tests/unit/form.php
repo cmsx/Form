@@ -187,4 +187,38 @@ class FormTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($f->field('one'), $arr['one'], 'One');
     $this->assertEquals($f->field('two'), $arr['two'], 'Two');
   }
+
+  function testReset()
+  {
+    $f = new \CMSx\Form('test');
+    $f->addInput('one')
+      ->setIsRequired();
+    $f->addCheckbox('two');
+    $f->setDefaultValues(array('one' => 'hello'));
+
+    $f->validate(array('two' => 1));
+    $this->assertTrue($f->isValidated(), 'Форма проверялась');
+    $this->assertTrue($f->hasErrors(), 'Есть ошибки');
+    $this->assertEquals('hello', $f->field('one')->getDefaultValue(), 'Значение по-умолчанию');
+
+    $f->reset();
+
+    $this->assertFalse($f->isValidated(), 'Форма не проверялась');
+    $this->assertFalse($f->hasErrors(), 'Ошибок нет');
+    $this->assertEquals('hello', $f->field('one')->getDefaultValue(), 'Значение по-умолчанию осталось');
+
+    $f->reset(true);
+
+    $this->assertEmpty($f->field('one')->getDefaultValue(), 'Значение по-умолчанию сброшено');
+
+    $f->validate(array('one' => 'wow'));
+
+    $this->assertTrue($f->isValid(), 'Форма валидна');
+    $this->assertEquals('wow', $f->field('one')->getValue(), 'Значение поля');
+
+    $f->reset();
+
+    $this->assertFalse($f->isValid(), 'Форма невалидна');
+    $this->assertEmpty($f->field('one')->getValue(), 'Значение поля сброшено');
+  }
 }
