@@ -17,7 +17,7 @@ class CheckboxListingTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($exp, $act, 'Список чекбоксов по значениям');
 
     $e->validate(array('one', 'two'));
-    echo $e->render();
+    
     $this->assertSelectCount('input[checked=checked]', 2, $e->render(), 'Два пункта отмечены');
 
     $e = new CheckboxListing('test');
