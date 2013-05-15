@@ -92,7 +92,7 @@ class FormTest extends PHPUnit_Framework_TestCase
       ->setOptionsIgnoreKeys();
     $f->setSubmit('Привет', 'sub');
 
-    echo $r = $f->render();
+    $r = $f->render();
 
     $this->assertSelectCount('form table tr td label input.ch[type=checkbox]', true, $r, 'Один чекбокс');
     $this->assertSelectCount('form table tr td label input.ch[value=13]', true, $r, 'Один чекбокс');
