@@ -174,4 +174,17 @@ class FormTest extends PHPUnit_Framework_TestCase
     $this->assertFalse($f->validate(array('before' => 1)), 'Пре-валидация: форма невалидна');
     $this->assertFalse($f->validate(array('after' => 1)), 'Пост-валидация: форма невалидна');
   }
+
+  function testGetFields()
+  {
+    $f = new \CMSx\Form('test');
+    $f->addInput('one');
+    $f->addCheckbox('two');
+
+    $arr = $f->getFields();
+    $this->assertTrue(is_array($arr), 'Массив');
+
+    $this->assertEquals($f->field('one'), $arr['one'], 'One');
+    $this->assertEquals($f->field('two'), $arr['two'], 'Two');
+  }
 }

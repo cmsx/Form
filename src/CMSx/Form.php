@@ -277,6 +277,16 @@ class Form
     return isset($this->fields[$field]) ? $this->fields[$field] : false;
   }
 
+  /**
+   * Элементы формы
+   *
+   * @return Element[]
+   */
+  public function getFields()
+  {
+    return $this->fields;
+  }
+
   /** @return Form\Element\Caption */
   public function addCaption($field, $label, $info = null)
   {
