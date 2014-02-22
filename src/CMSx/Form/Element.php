@@ -447,9 +447,19 @@ abstract class Element
   /** Проверка есть ли значение в списке опций */
   protected function checkValueIsInOptions($value)
   {
-    return $this->ignore_keys
-      ? in_array($value, $this->options)
-      : array_key_exists($value, $this->options);
+    if (is_array($value)) {
+      foreach ($value as $val) {
+        if (!$this->checkValueIsInOptions($val)) {
+          return false;
+        }
+      }
+
+      return true;
+    } else {
+      return $this->ignore_keys
+        ? in_array($value, $this->options)
+        : array_key_exists($value, $this->options);
+    }
   }
 
   /** Для настроек при наследовании */

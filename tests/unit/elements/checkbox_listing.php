@@ -28,7 +28,7 @@ class CheckboxListingTest extends PHPUnit_Framework_TestCase
     $act = $e->render();
     $this->assertEquals($exp, $act, 'Список чекбоксов ключ-значение с разделителем');
 
-    $e->validate(2);
+    $e->validate(array(2));
     $this->assertSelectCount('input[checked=checked]', 1, $e->render(), 'Один пункт отмечен');
   }
 }
